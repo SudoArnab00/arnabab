@@ -1,0 +1,71 @@
+.biodata{
+  padding: 10px 10px;
+}
+
+#mypic{
+  padding: 8px 8px 8px 8px;
+  width: 100%;
+  box-shadow: 2px 4px 8px 0 rgba(0,0,0,0.3);
+  font-size: 20px;
+  font-family: cursive;
+  text-align: center;
+  display: block;
+}
+
+#details{
+  padding: 8px 8px 8px 8px;
+  width: 100%;
+  box-shadow: 2px 4px 8px 0 rgba(0,0,0,0.3);
+  font-size: 20px;
+  font-family: cursive;
+  text-align: center;
+}
+
+.writeup{
+  float: left;
+  padding: 30px;
+  font-size: 25px;
+  font-family: cursive;
+}
+
+#name{
+    font-family: cursive;
+    font-size: 90px;
+    padding-left: 30px;
+    text-decoration: underline;
+}
+
+#designation{
+    font-family: cursive;
+    font-size: 30px;
+    padding-left: 30px;
+}
+
+#ribbon{
+  font-family: cursive;
+  font-size: 80px;
+  float: inline-end;
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  padding: 5px 10px 5px 5px;
+}
+.collapsible {
+  background-color: #777;
+  font-family: 'Courier New', Courier, monospace;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 30px;
+}
+.active, .collapsible:hover {
+  background-color: #555;
+}

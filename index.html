@@ -1,0 +1,70 @@
+<html>
+<title> Resume </title>
+<link rel="stylesheet" href="resources\Styles.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<body>
+<div class="biodata">
+<table>
+  <tr>
+  	<td>
+   	 <div id="mypic">
+     	 <img src="images\profile.PNG" alt="my biodata picture">
+   	 </div>
+			<br>
+  	 <div id="details">
+       <h3> (+91) 9804392632 </h3>
+       <h3> <a href=""> b.arnab@keemail.me </a> </h3>
+   		</div>
+   	 </td>
+    <td>
+  
+      <h1 id="name">Arnab Bhattacharjee</h1>
+      <h2 id="designation">Cloud Infrastructure Administrator</h2>
+        
+    <div class="writeup">
+  		<ul>
+    		<li> Microsoft Azure </li>
+    		<li> VmWare vSphere </li>
+ 			</ul>
+ 		 <ul>
+   		 <li> Team Player <br> </li>
+   		 <li> A keen observer to details <br> </li>
+   		 <li> Excellent organizational skills <br> </li>
+		  </ul>
+ 					 <br>
+  			 Motivated to learn, grow and excel in Cloud Infrastructure and Cyber-Security.
+	</div>
+	</td>
+	</tr>
+</table> 
+<button type="button" class="collapsible">Certification</button>
+	<div class="content">
+	   <a href="resources\certificates\Axelos ITIL Certificate External.pdf" target="_blank" download> 
+		   <img src="resources\certificates\icons\axelos.PNG"> 
+		</a>
+		<a href="resources\certificates\Microsoft_Certified_Professional_Certificate_0.pdf" target="_blank" download> 
+			<img src="resources\certificates\icons\MS.PNG">
+		 </a>
+		 <a href="resources\certificates\New Doc 9_3.jpg" target="_blank" download> 
+			<img src="resources\certificates\icons\knowledgelab.PNG">
+		 </a>
+	</div>
+	<script>
+		var coll = document.getElementsByClassName("collapsible");
+				var i;
+				
+				for (i = 0; i < coll.length; i++) {
+				  coll[i].addEventListener("click", function() {
+					this.classList.toggle("active");
+					var content = this.nextElementSibling;
+					if (content.style.display === "block") {
+					  content.style.display = "none";
+					} else {
+					  content.style.display = "block";
+					}
+				  });
+				}
+	</script>
+</body>
+</html>
