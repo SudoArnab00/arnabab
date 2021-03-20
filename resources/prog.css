@@ -1,18 +1,71 @@
+/*Navigation Bar start*/
 .me{
-    height: 50px;
-    width: 49%;
-    border: rgb(160, 95, 95);
-    background-color: inherit;
-    font-size: 25px;
-    cursor: initial;
-    display: inline-block;
-  }
-  .work{
-    height: 50px;
-    width: 49%;
-    border: rgb(160, 95, 95);
-    background-color: inherit;
-    font-size: 25px;
-    cursor: initial;
-    display: inline-block;
-  }
+  text-decoration: none;
+  text-align: center;
+  overflow: hidden;
+  height: 50px;
+  width: 49.7%;
+  background-color: rgba(0, 0, 0, 0.466);
+  font-size: 25px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-block;
+  padding-top: 0.5em;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.425);
+}
+.work{
+  text-decoration: none;
+  text-align: center;
+  overflow: hidden;
+  height: 50px;
+  width: 49.9%;
+  background-color: rgba(0, 0, 0, 0.466);
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  padding-top: 0.5em;
+  border-style: solid;
+  border-color: rgb(0, 0, 0, 0.425);
+}
+
+.topnav .work:hover {
+background-color: white;
+color: rgba(0, 0, 0, 0.466);
+transition-delay: 0.2s;
+}
+.topnav .me:hover {
+background-color: white;
+color: rgba(0, 0, 0, 0.466);
+transition-delay: 0.2s;
+}
+/*Navigation Bar end*/
+
+.work_card {
+  padding: 0em;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(245, 239, 239);
+}
+
+/*removing bullet in list*/
+ul,li {
+  list-style-type: none;
+}
+
+#heads {
+  float:inline-start;
+  font-style: oblique;
+  font-weight: bolder;
+  font-size: xx-large;
+  padding-bottom: 0.5em;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#subheads {
+  font-family: monospace;
+  font-size: x-large;
+  padding-bottom: 1em;
+}

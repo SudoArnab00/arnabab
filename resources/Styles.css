@@ -1,21 +1,47 @@
+/*Navigation Bar start*/
 .me{
+  text-decoration: none;
+  text-align: center;
+  overflow: hidden;
   height: 50px;
-  width: 49%;
-  border: rgb(160, 95, 95);
-  background-color: inherit;
+  width: 49.7%;
+  background-color: rgba(0, 0, 0, 0.466);
   font-size: 25px;
-  cursor: initial;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
   display: inline-block;
+  padding-top: 0.5em;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.425);
 }
 .work{
+  text-decoration: none;
+  text-align: center;
+  overflow: hidden;
   height: 50px;
-  width: 49%;
-  border: rgb(160, 95, 95);
-  background-color: inherit;
+  width: 49.9%;
+  background-color: rgba(0, 0, 0, 0.466);
   font-size: 25px;
-  cursor: initial;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
   display: inline-block;
+  padding-top: 0.5em;
+  border-style: solid;
+  border-color: rgb(0, 0, 0, 0.425);
 }
+.topnav .work:hover {
+background-color: white;
+color: rgba(0, 0, 0, 0.466);
+transition-delay: 0.2s;
+}
+.topnav .me:hover {
+background-color: white;
+color: rgba(0, 0, 0, 0.466);
+transition-delay: 0.2s;
+}
+/*Navigation bar End*/
 
 .biodata{
   padding: 10px 10px;
@@ -30,19 +56,15 @@
   padding: 8px 8px 8px 8px;
   width: 100%;
   box-shadow: 2px 4px 8px 0 rgba(0,0,0,0.3);
-  font-size: 20px;
-  font-family: cursive;
-  text-align: center;
   display: block;
 }
 
 #details{
-  padding: 8px 8px 8px 8px;
-  width: 100%;
-  box-shadow: 2px 4px 8px 0 rgba(0,0,0,0.3);
+  padding: 1%;
   font-size: 20px;
   font-family: cursive;
   text-align: center;
+
 }
 
 .writeup{
@@ -53,16 +75,22 @@
 }
 
 #name{
-    font-family: cursive;
-    font-size: 90px;
-    padding-left: 30px;
-    text-decoration: underline;
+  font-family: cursive;
+  font-size: 100px;
+  padding-left: 30px;
+  text-decoration: underline;
+  display: inline-block;
+  margin-top: 0em;
+  margin-bottom: 0em;
 }
 
-#designation{
-    font-family: cursive;
-    font-size: 30px;
-    padding-left: 30px;
+.designation{
+  font-family: cursive;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 50px;
+  padding-left: 20px;
+  margin-top: 0.4em;
+  margin-bottom: 0em;
 }
 
 #ribbon{
