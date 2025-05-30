@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AB</title>
+<meta name="description" content="Portfolio website showcasing certifications, skills, experience, education, and blog of a cybersecurity professional." />
+<meta name="keywords" content="Cybersecurity, Portfolio, Certifications, Skills, Experience, Education, Blog" />
+<meta name="Arnab" content="Arnab Bhattacharjee" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  /* Reset and base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    background: linear-gradient(135deg, #f0f4ff, #d9e2ff);
+    color: #212121;
+    scroll-behavior: smooth;
+  }
+
+  /* Container layout */
+  #container {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* Sidebar navigation */
+  nav#sidebar {
+    position: sticky;
+    top: 0;
+    width: 200px;
+    background: #2f3e7b;
+    padding-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+    font-family: 'Montserrat', sans-serif;
+    height: 100vh;
+  }
+
+  nav#sidebar a {
+    color: #aab6ff;
+    text-decoration: none;
+    padding: 0.75rem 1.2rem;
+    font-weight: 600;
+    font-size: 1rem;
+    border-left: 4px solid transparent;
+    transition: background-color 0.3s, border-left-color 0.3s, color 0.3s;
+    cursor: pointer;
+  }
+  nav#sidebar a:hover,
+  nav#sidebar a:focus {
+    background-color: rgba(99,102,241,0.25);
+    border-left-color: #4f46e5;
+    color: white;
+    outline: none;
+  }
+  nav#sidebar a.active {
+    color: white;
+    border-left-color: #4f46e5;
+    font-weight: 700;
+  }
+  nav#sidebar a:focus-visible {
+    outline: 2px solid #a5b4fc;
+    outline-offset: 2px;
+  }
+
+  /* Main content */
+  main {
+    flex-grow: 1;
+    padding: 2.5rem 2rem 3rem;
+    background: white;
+    border-radius: 0 16px 16px 0;
+    box-shadow:
+      0 2px 5px rgba(0,0,0,0.1),
+      0 6px 20px rgba(0,0,0,0.1);
+    overflow-y: auto;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0;
+    color: #2c3a99;
+    user-select: none;
+  }
+  header p {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #5a67d8;
+    margin: 0.5rem 0 1.5rem;
+    font-style: italic;
+    user-select: none;
+  }
+  #blog-section {
+    max-width: 320px;
+    margin: 1.5rem auto 2rem;
+    text-align: center;
+  }
+  #blog-section button {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.18rem;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 40px;
+    padding: 1rem 2.7rem;
+    cursor: pointer;
+    box-shadow:
+      0 8px 16px rgba(79, 70, 229, 0.35);
+    transition: transform 0.25s ease, box-shadow 0.3s ease;
+    user-select: none;
+  }
+  #blog-section button:hover,
+  #blog-section button:focus {
+    outline: none;
+    transform: scale(1.07);
+    box-shadow:
+      0 12px 25px rgba(79, 70, 229, 0.55);
+  }
+  #blog-section button:focus-visible {
+    outline: 3px solid #a5b4fc;
+    outline-offset: 4px;
+  }
+
+  /* Sections */
+  section {
+    margin-bottom: 3.5rem;
+    padding: 0 0.3rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  section h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: #2c3a99;
+    border-bottom: 3px solid #4f46e5;
+    padding-bottom: 0.4rem;
+    margin-bottom: 1.4rem;
+    user-select: none;
+  }
+
+  /* Certifications & Skills collapsible styling */
+  details {
+    border: 1px solid #bbccff;
+    border-radius: 10px;
+    padding: 1rem 1rem 0.4rem 1.3rem;
+    background: #f7f9ff;
+    margin-bottom: 1.5rem;
+    box-shadow:
+      inset 0 3px 6px rgba(79, 70, 229, 0.05);
+  }
+  summary {
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #4f46e5;
+    outline: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::before {
+    
+    color: #6366f1;
+    display: inline-block;
+    width: 1.2em;
+    margin-right: 0.4em;
+    transition: transform 0.3s ease;
+    transform-origin: center;
+  }
+  details[open] summary::before {
+    transform: rotate(90deg);
+  }
+
+  /* Experience timeline */
+  #experience .timeline {
+    position: relative;
+    margin-left: 26px;
+    border-left: 3px solid #4f46e5;
+    padding-left: 1.2rem;
+  }
+  #experience .event {
+    position: relative;
+    margin-bottom: 2.4rem;
+  }
+  #experience .event:last-child {
+    margin-bottom: 0;
+  }
+  #experience .event::before {
+    content: '';
+    position: absolute;
+    left: -14px;
+    top: 4px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #4f46e5;
+    box-shadow: 0 0 8px rgba(79, 70, 229, 0.4);
+  }
+  #experience .event h3 {
+    margin: 0;
+    font-size: 1.42rem;
+    color: #2c3a99;
+    user-select: none;
+  }
+  #experience .event span {
+    font-size: 0.96rem;
+    color: #555;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 0.25rem;
+    font-family: monospace;
+  }
+  #experience .event p {
+    margin-top: 0.45rem;
+    font-size: 1rem;
+    color: #373737;
+    line-height: 1.55;
+  }
+
+  /* Certifications list */
+  #certifications ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 1rem;
+  }
+  #certifications li {
+    background-color: white;
+    margin-bottom: 1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 1.3rem;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #222;
+    box-shadow:
+      0 4px 10px rgba(99,102,241, 0.1);
+    user-select: none;
+  }
+  #certifications svg {
+    width: 36px;
+    height: 36px;
+    fill: #4f46e5;
+    flex-shrink: 0;
+  }
+
+  /* Skills radial charts */
+  #skills .skill {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.4rem;
+  }
+  #skills .skill-name {
+    flex-shrink: 0;
+    width: 110px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    user-select: none;
+    color: #3a3a3a;
+  }
+  #skills .radial-progress {
+    position: relative;
+    width: 72px;
+    height: 72px;
+  }
+  #skills svg {
+    transform: rotate(-90deg);
+    width: 72px;
+    height: 72px;
+    overflow: visible;
+  }
+  #skills circle {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+  }
+  #skills .radial-progress-bg {
+    stroke: #e0e7ff;
+  }
+  #skills .radial-progress-fg {
+    stroke: #4f46e5;
+    stroke-dasharray: 226;
+    stroke-dashoffset: 226;
+    transition: stroke-dashoffset 1.5s ease-out;
+  }
+  #skills .skill-percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -52%);
+    font-weight: 700;
+    font-size: 1rem;
+    color: #4f46e5;
+    user-select: none;
+  }
+
+  /* Education */
+  #education ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  #education li {
+    background-color: #f7f9ff;
+    border-radius: 14px;
+    padding: 1.4rem 1.8rem;
+    margin-bottom: 1.6rem;
+    box-shadow:
+      0 5px 18px rgba(79, 70, 229, 0.1);
+    user-select: none;
+  }
+  #education h3 {
+    margin: 0 0 0.4rem 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #3a3a75;
+    font-family: 'Montserrat', sans-serif;
+  }
+  #education span {
+    font-size: 1rem;
+    color: #555;
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.85rem;
+    color: #5a5a99;
+    font-family: monospace;
+    background: linear-gradient(90deg, #e0e7ff, #d4dff7);
+    box-shadow: inset 0 1px 6px rgba(0,0,0,0.05);
+    user-select: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    #container {
+      flex-direction: column;
+    }
+
+    nav#sidebar {
+      position: relative;
+      width: 100%;
+      height: auto;
+      padding: 1rem 0;
+      flex-direction: row;
+      justify-content: center;
+      box-shadow: none;
+      overflow-x: auto;
+    }
+    nav#sidebar a {
+      border-left: none;
+      border-bottom: 3px solid transparent;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin: 0 0.3rem;
+    }
+    nav#sidebar a.active {
+      border-left: none;
+      border-bottom-color: #4f46e5;
+      font-weight: 700;
+    }
+    main {
+      max-width: 100%;
+      margin: 1rem auto 2rem;
+      border-radius: 10px;
+      box-shadow:
+        0 2px 10px rgba(0,0,0,0.1);
+      padding: 1rem 1.5rem;
+    }
+  }
+
+  @media (max-width: 440px) {
+    header h1 {
+      font-size: 2rem;
+    }
+    header p {
+      font-size: 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <div id="container">
+    <nav id="sidebar" aria-label="Primary navigation">
+      <a href="#experience" class="nav-link active" aria-current="page" tabindex="0">Experience</a>
+      <a href="#certifications" class="nav-link" tabindex="0">Certifications</a>
+      <a href="#skills" class="nav-link" tabindex="0">Skills</a>
+      <a href="#education" class="nav-link" tabindex="0">Education</a>
+    </nav>
+
+    <main>
+      <header>
+        <h1>Arnab Bhattacharjee</h1>
+        <p>Cybersecurity Professional</p>
+        <div id="blog-section">
+          <button id="blog-btn" title="Visit my blog" aria-label="Visit my blog with new posts weekly">
+            🌟 Digital Defender 🌟 
+          </button>
+        </div>
+      </header>
+
+      <section id="experience" tabindex="-1" aria-labelledby="experience-title">
+        <h2 id="experience-title">Experience</h2>
+        <div class="timeline">
+          <article class="event" role="group" aria-label="Cyber Security Analyst at XYZ Company">
+            <h3> &nbsp Cyber Security Analyst - XYZ Company</h3>
+            <span>2019 - Present (4 years)</span>
+            <p>Responsible for protecting organizational assets by monitoring, detecting, and responding to cybersecurity threats and incidents.</p>
+          </article>
+          <article class="event" role="group" aria-label="Azure Administrator at XYZ Company">
+            <h3> &nbsp Azure Administrator - XYZ Company</h3>
+            <span>2017 - 2019 (2 years)</span>
+            <p>Managed and maintained cloud resources and services in Microsoft Azure to support enterprise infrastructure needs.</p>
+          </article>
+          <article class="event" role="group" aria-label="ITIL Service Manager at XYZ Company">
+            <h3> &nbsp ITIL Service Manager - XYZ Company</h3>
+            <span>2016 - 2017 (1 year)</span>
+            <p>Led IT service management processes aligned with ITIL practices to improve service delivery and operational efficiency.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="certifications" tabindex="-1" aria-labelledby="certifications-title">
+        <details open>
+          <summary id="certifications-title">Certifications</summary>
+          <ul>
+            <li>
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                <path d="M9 12l2 2 4-4" stroke-width="2" stroke="#4f46e5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>
+                <strong>Certified Full Stack Developer</strong><br />
+                Issued by ABC Institute, 2023
+              </div>
+            </li>
+            <li>
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                <path d="M9 12l2 2 4-4" stroke-width="2" stroke="#4f46e5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>
+                <strong>Google IT Support Professional Certificate</strong><br />
+                Issued by Coursera, 2022
+              </div>
+            </li>
+            <li>
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+                <path d="M9 12l2 2 4-4" stroke-width="2" stroke="#4f46e5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>
+                <strong>JavaScript Algorithms and Data Structures</strong><br />
+                Issued by freeCodeCamp, 2021
+              </div>
+            </li>
+          </ul>
+        </details>
+      </section>
+
+      <section id="skills" tabindex="-1" aria-labelledby="skills-title">
+        <details open>
+          <summary id="skills-title">Skills</summary>
+          <div style="margin-top:1rem;">
+            <div class="skill" role="region" aria-label="JavaScript skill proficiency 90 percent">
+              <div class="skill-name">JavaScript</div>
+              <div class="radial-progress" aria-hidden="true">
+                <svg viewBox="0 0 80 80" >
+                  <circle class="radial-progress-bg" cx="40" cy="40" r="36"></circle>
+                  <circle class="radial-progress-fg js-progress" cx="40" cy="40" r="36"></circle>
+                </svg>
+                <div class="skill-percentage">90%</div>
+              </div>
+            </div>
+
+            <div class="skill" role="region" aria-label="React skill proficiency 85 percent">
+              <div class="skill-name">React</div>
+              <div class="radial-progress" aria-hidden="true">
+                <svg viewBox="0 0 80 80" >
+                  <circle class="radial-progress-bg" cx="40" cy="40" r="36"></circle>
+                  <circle class="radial-progress-fg react-progress" cx="40" cy="40" r="36"></circle>
+                </svg>
+                <div class="skill-percentage">85%</div>
+              </div>
+            </div>
+
+            <div class="skill" role="region" aria-label="Node.js skill proficiency 80 percent">
+              <div class="skill-name">Node.js</div>
+              <div class="radial-progress" aria-hidden="true">
+                <svg viewBox="0 0 80 80" >
+                  <circle class="radial-progress-bg" cx="40" cy="40" r="36"></circle>
+                  <circle class="radial-progress-fg node-progress" cx="40" cy="40" r="36"></circle>
+                </svg>
+                <div class="skill-percentage">80%</div>
+              </div>
+            </div>
+
+            <div class="skill" role="region" aria-label="CSS and HTML skill proficiency 95 percent">
+              <div class="skill-name">CSS / HTML</div>
+              <div class="radial-progress" aria-hidden="true">
+                <svg viewBox="0 0 80 80" >
+                  <circle class="radial-progress-bg" cx="40" cy="40" r="36"></circle>
+                  <circle class="radial-progress-fg css-progress" cx="40" cy="40" r="36"></circle>
+                </svg>
+                <div class="skill-percentage">95%</div>
+              </div>
+            </div>
+
+            <div class="skill" role="region" aria-label="Python skill proficiency 70 percent">
+              <div class="skill-name">Python</div>
+              <div class="radial-progress" aria-hidden="true">
+                <svg viewBox="0 0 80 80" >
+                  <circle class="radial-progress-bg" cx="40" cy="40" r="36"></circle>
+                  <circle class="radial-progress-fg python-progress" cx="40" cy="40" r="36"></circle>
+                </svg>
+                <div class="skill-percentage">70%</div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <section id="education" tabindex="-1" aria-labelledby="education-title">
+        <h2 id="education-title">Education</h2>
+        <ul>
+          <li>
+            <h3>Bachelor of Science in Computer Science</h3>
+            <span>University of Excellent Studies, 2018 - 2022</span>
+          </li>
+          <li>
+            <h3>High School Diploma</h3>
+            <span>ABC High School, 2014 - 2018</span>
+          </li>
+        </ul>
+      </section>
+      <footer>
+        &copy; 2024 Your Name. All rights reserved.
+      </footer>
+    </main>
+  </div>
+
+<script>
+  // Smooth active link highlight on scroll
+  const sections = document.querySelectorAll('main section');
+  const navLinks = document.querySelectorAll('nav#sidebar a');
+
+  function activateLinkOnScroll() {
+    const scrollPos = window.scrollY + window.innerHeight / 3;
+
+    sections.forEach((section, index) => {
+      if (scrollPos >= section.offsetTop) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          link.removeAttribute('aria-current');
+        });
+        navLinks[index].classList.add('active');
+        navLinks[index].setAttribute('aria-current', 'page');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', () => {
+    activateLinkOnScroll();
+    revealSections();
+  });
+
+  // Reveal sections with fade on scroll
+  function revealSections() {
+    const viewportHeight = window.innerHeight;
+    sections.forEach(section => {
+      const top = section.getBoundingClientRect().top;
+      if (top < viewportHeight * 0.85) {
+        section.classList.add('visible');
+      }
+    });
+  }
+
+  // Radial progress circle animation values
+  function animateSkillProgress(circle, percent) {
+    const circumference = 2 * Math.PI * 36;
+    const offset = circumference - (percent / 100) * circumference;
+    circle.style.strokeDashoffset = offset;
+  }
+
+  // Animate skill charts on reveal
+  function animateSkillCharts() {
+    animateSkillProgress(document.querySelector('.js-progress'), 90);
+    animateSkillProgress(document.querySelector('.react-progress'), 85);
+    animateSkillProgress(document.querySelector('.node-progress'), 80);
+    animateSkillProgress(document.querySelector('.css-progress'), 95);
+    animateSkillProgress(document.querySelector('.python-progress'), 70);
+  }
+
+  // Run skill animation once when visible
+  let skillAnimated = false;
+  window.addEventListener('scroll', () => {
+    const skillsSection = document.getElementById('skills');
+    const rect = skillsSection.getBoundingClientRect();
+    if (!skillAnimated && rect.top < window.innerHeight * 0.85) {
+      animateSkillCharts();
+      skillAnimated = true;
+    }
+  });
+
+  // Blog button open blogs.html in new tab
+  document.getElementById('blog-btn').addEventListener('click', () => {
+    window.open('blogs.html', '_blank');
+  });
+
+  // Initialize
+  document.addEventListener('DOMContentLoaded', () => {
+    activateLinkOnScroll();
+    revealSections();
+  });
+</script>
+
+</body>
+</html>
