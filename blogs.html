@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>My Blog | Your Name</title>
+<meta name="description" content="Latest and archived blog posts by Your Name" />
+<meta name="author" content="Your Name" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  /* Reset and base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    background: linear-gradient(135deg, #f0f4ff, #d9e2ff);
+    color: #212121;
+    display: flex;
+    min-height: 100vh;
+  }
+  nav#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100vh;
+    background: #2f3e7b;
+    padding-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+    font-family: 'Montserrat', sans-serif;
+    z-index: 999;
+  }
+  nav#sidebar a.back-portfolio {
+    margin: 0 1rem 1.5rem 1rem;
+    padding: 0.75rem 1rem;
+    background-color: #4f46e5;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    box-shadow:
+      0 4px 6px rgba(79,70,229,0.6);
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.15s;
+    user-select: none;
+  }
+  nav#sidebar a.back-portfolio:hover,
+  nav#sidebar a.back-portfolio:focus {
+    background-color: #3730a3;
+    box-shadow:
+      0 6px 12px rgba(55,48,163,0.75);
+    outline: none;
+    transform: translateY(-2px);
+  }
+  nav#sidebar a.back-portfolio:active {
+    transform: translateY(0);
+    box-shadow:
+      0 3px 6px rgba(55,48,163,0.85);
+  }
+  nav#sidebar a.back-portfolio:focus-visible {
+    outline: 3px solid #a5b4fc;
+    outline-offset: 3px;
+  }
+  nav#sidebar a:not(.back-portfolio) {
+    color: #aab6ff;
+    text-decoration: none;
+    padding: 0.75rem 1.2rem;
+    font-weight: 600;
+    font-size: 1rem;
+    border-left: 4px solid transparent;
+    transition: background-color 0.3s, border-left-color 0.3s, color 0.3s;
+  }
+  nav#sidebar a:not(.back-portfolio):hover,
+  nav#sidebar a:not(.back-portfolio):focus {
+    background-color: rgba(99,102,241,0.25);
+    border-left-color: #4f46e5;
+    color: white;
+    outline: none;
+  }
+  nav#sidebar a:not(.back-portfolio):focus-visible {
+    outline: 2px solid #a5b4fc;
+    outline-offset: 2px;
+  }
+  main {
+    margin-left: 200px;
+    padding: 2.5rem 2rem 3rem;
+    max-width: calc(100% - 200px - 280px);
+    /* reserving space for sidebar and archived */
+    flex-grow: 1;
+    background: white;
+    border-radius: 16px 0 0 16px;
+    box-shadow:
+      0 2px 5px rgba(0,0,0,0.1),
+      0 6px 20px rgba(0,0,0,0.1);
+    min-height: 100vh;
+    position: relative;
+    overflow-y: auto;
+  }
+  header {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0;
+    color: #2c3a99;
+    user-select: none;
+  }
+  #posts {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .blog-post {
+    border-radius: 14px;
+    border: 1px solid #d3def9;
+    padding: 1.8rem 2rem 1.5rem;
+    box-shadow:
+      0 3px 12px rgba(79, 70, 229, 0.15);
+    transition: box-shadow 0.3s ease;
+    background: #f7f9ff;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    width: 100%;
+  }
+  .blog-post:hover,
+  .blog-post:focus-within {
+    box-shadow:
+      0 8px 28px rgba(79, 70, 229, 0.3);
+    outline: none;
+  }
+  .blog-post h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    margin: 0 0 0.35rem 0;
+    color: #2c3a99;
+  }
+  .blog-post time {
+    font-family: monospace;
+    color: #555;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .blog-post p {
+    margin-top: 0.8rem;
+    font-size: 1rem;
+    color: #373737;
+    line-height: 1.5;
+    flex-grow: 1;
+  }
+  .blog-post button.read-more {
+    margin-top: 1.2rem;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    padding: 0.85rem 1.8rem;
+    border-radius: 40px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 16px rgba(79, 70, 229, 0.35);
+    transition: transform 0.25s ease, box-shadow 0.3s ease;
+    align-self: flex-start;
+  }
+  .blog-post button.read-more:hover,
+  .blog-post button.read-more:focus {
+    outline: none;
+    transform: scale(1.07);
+    box-shadow: 0 12px 28px rgba(79, 70, 229, 0.55);
+  }
+  .blog-post button.read-more:focus-visible {
+    outline: 3px solid #a5b4fc;
+    outline-offset: 4px;
+  }
+  #archived-sidebar {
+    position: fixed;
+    top: 6rem;
+    right: 0;
+    width: 280px;
+    height: calc(100vh - 6rem);
+    background: #eef1ff;
+    padding: 2rem 1.5rem 2rem;
+    box-shadow: -2px 0 8px rgba(0,0,0,0.15);
+    overflow-y: auto;
+    border-radius: 0 16px 16px 0;
+  }
+  #archived-sidebar h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    border-bottom: 3px solid #4f46e5;
+    padding-bottom: 0.3rem;
+    margin-bottom: 1.5rem;
+    color: #2c3a99;
+    user-select: none;
+  }
+  #archived-sidebar ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  #archived-sidebar li {
+    background: white;
+    margin-bottom: 1rem;
+    padding: 1rem 1.3rem;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.1);
+    font-weight: 600;
+  }
+  #archived-sidebar li a {
+    text-decoration: none;
+    color: #4f46e5;
+    transition: color 0.3s ease;
+  }
+  #archived-sidebar li a:hover,
+  #archived-sidebar li a:focus {
+    color: #2c3a99;
+    outline: none;
+  }
+  #archived-sidebar li a:focus-visible {
+    outline: 3px solid #a5b4fc;
+    outline-offset: 3px;
+  }
+
+  /* Modal styles */
+  #modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    backdrop-filter: blur(4px);
+  }
+
+  #modal-overlay.active {
+    display: flex;
+    animation: fadeIn 0.3s ease forwards;
+  }
+
+  #modal-content {
+    background: white;
+    max-width: 650px;
+    max-height: 80vh;
+    padding: 2rem 2.5rem 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(79,70,229,0.3);
+    position: relative;
+    overflow-y: auto;
+    user-select: text;
+  }
+
+  #modal-content:focus {
+    outline: none;
+  }
+
+  #modal-content h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: #2c3a99;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 1.3rem;
+    font-size: 2rem;
+  }
+  #modal-content time {
+    font-family: monospace;
+    color: #555;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 1.8rem;
+  }
+  #modal-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  #modal-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #777;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    user-select: none;
+  }
+  #modal-close-btn:hover,
+  #modal-close-btn:focus {
+    color: #4f46e5;
+    outline: none;
+  }
+  #modal-close-btn:focus-visible {
+    outline: 3px solid #a5b4fc;
+    outline-offset: 4px;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    main {
+      max-width: 100%;
+      margin-left: 200px;
+    }
+  }
+  @media (max-width: 1000px) {
+    main {
+      margin-left: 200px;
+      max-width: calc(100% - 200px);
+      border-radius: 0;
+      box-shadow: none;
+    }
+    #archived-sidebar {
+      position: static;
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 5px 18px rgba(79, 70, 229, 0.15);
+      margin: 2rem 0 0;
+      overflow-y: visible;
+      padding: 1.5rem 1rem;
+    }
+  }
+  @media (max-width: 600px) {
+    nav#sidebar {
+      position: relative;
+      height: auto;
+      width: 100%;
+      flex-direction: row;
+      padding: 0.5rem 1rem;
+      box-shadow: none;
+      overflow-x: auto;
+      justify-content: flex-start;
+    }
+    nav#sidebar a.back-portfolio {
+      margin: 0 0.5rem 0.75rem 0.5rem;
+      padding: 0.65rem 1rem;
+      font-size: 0.95rem;
+      border-radius: 6px;
+      box-shadow:
+        0 3px 5px rgba(79,70,229,0.5);
+    }
+    nav#sidebar a.back-portfolio:hover,
+    nav#sidebar a.back-portfolio:focus {
+      background-color: #3b3a99;
+      box-shadow:
+        0 5px 12px rgba(59,58,153,0.65);
+      transform: translateY(-1px);
+    }
+    main {
+      margin-left: 0;
+      padding: 1.5rem 1rem 3rem;
+      border-radius: 0;
+      box-shadow: none;
+      min-height: auto;
+    }
+  }
+  @media (max-width: 440px) {
+    header h1 {
+      font-size: 2rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <nav id="sidebar" aria-label="Blog navigation">
+    <a href="portfolio.html" class="back-portfolio" tabindex="0">← Back to Portfolio</a>
+    <!-- space below back to portfolio before archived posts -->
+    <div style="height:1.5rem;"></div>
+  </nav>
+
+  <main>
+    <header>
+      <h1>My Blog</h1>
+    </header>
+
+    <section id="posts" aria-label="Blog posts">
+      <article class="blog-post" tabindex="0" aria-labelledby="post1-title" role="article" data-post-id="1">
+        <h2 id="post1-title">Mastering Java: A Beginner’s Guide</h2>
+        <time datetime="2024-06-10">June 10, 2024</time>
+        <p>Discover the fundamentals of Java programming with this comprehensive beginner’s guide. Learn about syntax, object-oriented concepts, and build your first projects with confidence.</p>
+        <button type="button" aria-label="Read more about Mastering Java" class="read-more-btn">Read More</button>
+      </article>
+      <article class="blog-post" tabindex="0" aria-labelledby="post2-title" role="article" data-post-id="2">
+        <h2 id="post2-title">Advanced Java Concurrency Techniques</h2>
+        <time datetime="2024-05-20">May 20, 2024</time>
+        <p>Dive into Java concurrency and multithreading to create high-performance applications. Explore thread synchronization, thread pools, and best practices for safe concurrent programming.</p>
+        <button type="button" aria-label="Read more about Advanced Java Concurrency Techniques" class="read-more-btn">Read More</button>
+      </article>
+      <article class="blog-post" tabindex="0" aria-labelledby="post3-title" role="article" data-post-id="3">
+        <h2 id="post3-title">Java Streams API Explained</h2>
+        <time datetime="2024-04-05">April 5, 2024</time>
+        <p>An in-depth look at Java Streams API to simplify collection processing. Learn to filter, map, and reduce data with functional programming techniques.</p>
+        <button type="button" aria-label="Read more about Java Streams API Explained" class="read-more-btn">Read More</button>
+      </article>
+      <article class="blog-post" tabindex="0" aria-labelledby="post4-title" role="article" data-post-id="4">
+        <h2 id="post4-title">Exception Handling Best Practices in Java</h2>
+        <time datetime="2024-03-15">March 15, 2024</time>
+        <p>Understand Java's exception hierarchy and how to properly use try-catch blocks, custom exceptions, and finally clauses to build robust applications.</p>
+        <button type="button" aria-label="Read more about Exception Handling Best Practices in Java" class="read-more-btn">Read More</button>
+      </article>
+      <article class="blog-post" tabindex="0" aria-labelledby="post5-title" role="article" data-post-id="5">
+        <h2 id="post5-title">Java Memory Management and Garbage Collection</h2>
+        <time datetime="2024-02-28">February 28, 2024</time>
+        <p>Explore how Java manages memory and the inner workings of garbage collection. Learn tuning tips for performance enhancements.</p>
+        <button type="button" aria-label="Read more about Java Memory Management and Garbage Collection" class="read-more-btn">Read More</button>
+      </article>
+      <article class="blog-post" tabindex="0" aria-labelledby="post6-title" role="article" data-post-id="6">
+        <h2 id="post6-title">Multithreading vs. Parallelism in Java</h2>
+        <time datetime="2024-02-10">February 10, 2024</time>
+        <p>Clarify the differences between multithreading and parallelism in Java applications and scenarios where each is appropriate.</p>
+        <button type="button" aria-label="Read more about Multithreading vs. Parallelism in Java" class="read-more-btn">Read More</button>
+      </article>
+      <article class="blog-post" tabindex="0" aria-labelledby="post7-title" role="article" data-post-id="7">
+        <h2 id="post7-title">Java Design Patterns Simplified</h2>
+        <time datetime="2024-01-25">January 25, 2024</time>
+        <p>A beginner-friendly explanation of major Java design patterns with use-cases and sample code snippets to help improve your software design.</p>
+        <button type="button" aria-label="Read more about Java Design Patterns Simplified" class="read-more-btn">Read More</button>
+      </article>
+    </section>
+  </main>
+
+  <aside id="archived-sidebar" aria-label="Archived blog posts">
+    <h2>Archived Posts</h2>
+    <ul>
+      <li><a href="#" tabindex="0" aria-label="Read Archived Blog Post on Introduction to Java 8">Introduction to Java 8</a></li>
+      <li><a href="#" tabindex="0" aria-label="Read Archived Blog Post on Java Performance Tuning">Java Performance Tuning</a></li>
+    </ul>
+  </aside>
+
+  <!-- Modal Overlay -->
+  <div id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+    <div id="modal-content" tabindex="0">
+      <button id="modal-close-btn" aria-label="Close blog post modal">&times;</button>
+      <h2 id="modal-title">Post Title</h2>
+      <time id="modal-date" datetime="">Date</time>
+      <div id="modal-body">
+        <p>Post content goes here...</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const posts = [
+      {
+        id: 1,
+        title: "Mastering Java: A Beginner’s Guide",
+        date: "2024-06-10",
+        content: `
+          <p>Discover the fundamentals of Java programming with this comprehensive beginner’s guide. Learn about syntax, variables, data types, and explore object-oriented programming concepts such as classes, inheritance, and polymorphism.</p>
+          <p>This post will guide you through setting up your Java development environment, writing your first program, and understanding key concepts that lay the foundation for becoming a proficient Java developer.</p>
+          <p>By the end, you'll have the confidence to build basic Java applications and continue your journey into advanced topics.</p>
+        `
+      },
+      {
+        id: 2,
+        title: "Advanced Java Concurrency Techniques",
+        date: "2024-05-20",
+        content: `
+          <p>Dive deep into Java concurrency and multithreading, crucial for high-performance and responsive applications.</p>
+          <p>This article covers thread lifecycle, synchronization methods, thread pools, executors, and atomic variables. Learn best practices for avoiding deadlocks, race conditions, and leveraging concurrency utilities from java.util.concurrent.</p>
+          <p>Understanding these techniques enables you to write safe, scalable, and efficient Java programs suitable for real-world enterprise environments.</p>
+        `
+      },
+      {
+        id: 3,
+        title: "Java Streams API Explained",
+        date: "2024-04-05",
+        content: `
+          <p>An in-depth look at Java Streams API to simplify collection processing. Learn to filter, map, and reduce data with functional programming techniques.</p>
+        `
+      },
+      {
+        id: 4,
+        title: "Exception Handling Best Practices in Java",
+        date: "2024-03-15",
+        content: `
+          <p>Understand Java's exception hierarchy and how to properly use try-catch blocks, custom exceptions, and finally clauses to build robust applications.</p>
+        `
+      },
+      {
+        id: 5,
+        title: "Java Memory Management and Garbage Collection",
+        date: "2024-02-28",
+        content: `
+          <p>Explore how Java manages memory and the inner workings of garbage collection. Learn tuning tips for performance enhancements.</p>
+        `
+      },
+      {
+        id: 6,
+        title: "Multithreading vs. Parallelism in Java",
+        date: "2024-02-10",
+        content: `
+          <p>Clarify the differences between multithreading and parallelism in Java applications and scenarios where each is appropriate.</p>
+        `
+      },
+      {
+        id: 7,
+        title: "Java Design Patterns Simplified",
+        date: "2024-01-25",
+        content: `
+          <p>A beginner-friendly explanation of major Java design patterns with use-cases and sample code snippets to help improve your software design.</p>
+        `
+      }
+    ];
+
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalContent = document.getElementById('modal-content');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDate = document.getElementById('modal-date');
+    const modalBody = document.getElementById('modal-body');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const readMoreButtons = document.querySelectorAll('.read-more-btn');
+
+    // Function to open modal with post content
+    function openModal(postId) {
+      const post = posts.find(p => p.id === postId);
+      if (!post) return;
+
+      modalTitle.textContent = post.title;
+      modalDate.setAttribute('datetime', post.date);
+      modalDate.textContent = new Date(post.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+      modalBody.innerHTML = post.content;
+
+      modalOverlay.classList.add('active');
+      modalContent.focus();
+      document.body.style.overflow = 'hidden'; // Prevent background scroll
+      trapFocus(modalOverlay);
+    }
+
+    // Function to close modal
+    function closeModal() {
+      modalOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      releaseFocusTrap();
+    }
+
+    // Event listeners for read more buttons
+    readMoreButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const postId = parseInt(btn.parentElement.getAttribute('data-post-id'), 10);
+        openModal(postId);
+      });
+    });
+
+    // Close modal on close button click or overlay click
+    modalCloseBtn.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', e => {
+      if (e.target === modalOverlay) {
+        closeModal();
+      }
+    });
+
+    // Close modal on ESC press
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+        closeModal();
+      }
+    });
+
+    // Focus trap inside modal for accessibility
+    let focusedElementBeforeModal;
+    function trapFocus(element) {
+      focusedElementBeforeModal = document.activeElement;
+      const focusableElementsString = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
+      let focusableElements = element.querySelectorAll(focusableElementsString);
+      focusableElements = Array.prototype.slice.call(focusableElements);
+
+      if (focusableElements.length === 0) return;
+
+      const firstFocusableElement = focusableElements[0];
+      const lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+      function handleFocus(e) {
+        if (e.key !== 'Tab') return;
+
+        if (e.shiftKey) { // shift + tab
+          if (document.activeElement === firstFocusableElement) {
+            e.preventDefault();
+            lastFocusableElement.focus();
+          }
+        } else { // tab
+          if (document.activeElement === lastFocusableElement) {
+            e.preventDefault();
+            firstFocusableElement.focus();
+          }
+        }
+      }
+      element.addEventListener('keydown', handleFocus);
+
+      modalOverlay.handleFocus = handleFocus; // save handler to remove later
+    }
+
+    function releaseFocusTrap() {
+      modalOverlay.removeEventListener('keydown', modalOverlay.handleFocus);
+      if (focusedElementBeforeModal) focusedElementBeforeModal.focus();
+    }
+  </script>
+</body>
+</html>
+
