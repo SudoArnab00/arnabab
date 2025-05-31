@@ -23,6 +23,19 @@
     color: #212121;
     scroll-behavior: smooth;
   }
+  
+  .skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem; /* space between skills */
+}
+
+.skill {
+  flex: 1 1 calc(33.33% - 1rem); /* three columns */
+  min-width: 250px;
+  box-sizing: border-box;
+}
+
 
   /* Container layout */
   #container {
@@ -269,56 +282,34 @@
     flex-shrink: 0;
   }
 
-  /* Skills radial charts */
-  #skills .skill {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.4rem;
-  }
-  #skills .skill-name {
-    flex-shrink: 0;
-    width: 110px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    user-select: none;
-    color: #3a3a3a;
-  }
-  #skills .radial-progress {
-    position: relative;
-    width: 72px;
-    height: 72px;
-  }
-  #skills svg {
-    transform: rotate(-90deg);
-    width: 72px;
-    height: 72px;
-    overflow: visible;
-  }
-  #skills circle {
-    fill: none;
-    stroke-width: 8;
-    stroke-linecap: round;
-  }
-  #skills .radial-progress-bg {
-    stroke: #e0e7ff;
-  }
-  #skills .radial-progress-fg {
-    stroke: #4f46e5;
-    stroke-dasharray: 226;
-    stroke-dashoffset: 226;
-    transition: stroke-dashoffset 1.5s ease-out;
-  }
-  #skills .skill-percentage {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -52%);
-    font-weight: 700;
-    font-size: 1rem;
-    color: #4f46e5;
-    user-select: none;
-  }
+  .skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-start;
+  margin-top: 1rem;
+}
+
+.skill-card {
+  background-color: #eef1ff;
+  padding: 0.9rem 1.2rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #2c3a99;
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.1);
+  text-align: center;
+  flex: 1 1 calc(30% - 1rem);
+  min-width: 140px;
+  max-width: 200px;
+  transition: transform 0.2s ease;
+  user-select: none;
+}
+
+.skill-card:hover {
+  transform: translateY(-4px);
+}
+
 
   /* Education */
   #education ul {
@@ -415,7 +406,7 @@
       
       <a href="#certifications" class="nav-link" tabindex="0">Certifications</a>
       <a href="#skills" class="nav-link" tabindex="0">Skills</a>
-      <a href="#education" class="nav-link" tabindex="0">Education</a>
+      <a href="#education" class="nav-link" tabindex="0">Tools</a>
     </nav>
 
     <main>
@@ -429,23 +420,27 @@
       </header>
 
       <section id="experience" tabindex="-1" aria-labelledby="experience-title">
-        <h2 id="experience-title">Experience</h2>
+        <h2 id="experience-title">Various roles</h2>
         <div class="timeline">
+		  <article class="event" role="group" aria-label="Cyber Security Analyst at XYZ Company">
+            <h3> &nbsp Network Security Specialist</h3>
+            <span> &nbsp 2023 - Present </span>
+           </article>
+		   
           <article class="event" role="group" aria-label="Cyber Security Analyst at XYZ Company">
-            <h3> &nbsp Cyber Security Analyst - XYZ Company</h3>
-            <span>2019 - Present (4 years)</span>
-            <p>Responsible for protecting organizational assets by monitoring, detecting, and responding to cybersecurity threats and incidents.</p>
+            <h3> &nbsp Cybersecurity - Center of Excellence</h3>
+            <span> &nbsp 2020 - 2023 (3 years)</span> 
           </article>
+		  
           <article class="event" role="group" aria-label="Azure Administrator at XYZ Company">
-            <h3> &nbsp Azure Administrator - XYZ Company</h3>
-            <span>2017 - 2019 (2 years)</span>
-            <p>Managed and maintained cloud resources and services in Microsoft Azure to support enterprise infrastructure needs.</p>
+            <h3> &nbsp Azure Administrator</h3>
+            <span> &nbsp 2017 - 2019 (1 years)</span>
           </article>
+		  
           <article class="event" role="group" aria-label="ITIL Service Manager at XYZ Company">
-            <h3> &nbsp ITIL Service Manager - XYZ Company</h3>
-            <span>2016 - 2017 (1 year)</span>
-            <p>Led IT service management processes aligned with ITIL practices to improve service delivery and operational efficiency.</p>
-          </article>
+            <h3> &nbsp ITIL System Analyst</h3>
+            <span> &nbsp 2016 - 2017 (2 year)</span>
+            </article>
         </div>
       </section>
 
@@ -485,85 +480,32 @@
       </section>
 
       <section id="skills" tabindex="-1" aria-labelledby="skills-title">
-        <details open>
-          <summary id="skills-title">Skills</summary>
-          <div style="margin-top:1rem;">
-            <div class="skill" role="region" aria-label="JavaScript skill proficiency 90 percent">
-              <div class="skill-name">JavaScript</div>
-              <div class="radial-progress" aria-hidden="true">
-                <svg viewBox="0 0 80 80" >
-                  <circle class="radial-progress-bg" cx="40" cy="40" r="36"></circle>
-                  <circle class="radial-progress-fg js-progress" cx="40" cy="40" r="36"></circle>
-                </svg>
-                <div class="skill-percentage">90%</div>
-              </div>
-            </div>
+  <details open>
+    <summary id="skills-title">Skills</summary>
+    <div class="skills-container">
+      <div class="skill-card">ZScaler</div>
+      <div class="skill-card">Virtualization</div>
+      <div class="skill-card">Linux</div>
+      <div class="skill-card">Python</div>
+      <div class="skill-card">Nmap</div>
+      <div class="skill-card">Microsoft GenAI</div>
+      <div class="skill-card">VMware vSphere</div>
+      <div class="skill-card">Microsoft Azure</div>
+	  <div class="skill-card">Data Leakage Protection</div>
+    </div>
+  </details>
+</section>
 
-            <div class="skill" role="region" aria-label="React skill proficiency 85 percent">
-              <div class="skill-name">React</div>
-              <div class="radial-progress" aria-hidden="true">
-                <svg viewBox="0 0 80 80" >
-                  <circle class="radial-progress-bg" cx="40" cy="40" r="36"></circle>
-                  <circle class="radial-progress-fg react-progress" cx="40" cy="40" r="36"></circle>
-                </svg>
-                <div class="skill-percentage">85%</div>
-              </div>
-            </div>
-
-            <div class="skill" role="region" aria-label="Node.js skill proficiency 80 percent">
-              <div class="skill-name">Node.js</div>
-              <div class="radial-progress" aria-hidden="true">
-                <svg viewBox="0 0 80 80" >
-                  <circle class="radial-progress-bg" cx="40" cy="40" r="36"></circle>
-                  <circle class="radial-progress-fg node-progress" cx="40" cy="40" r="36"></circle>
-                </svg>
-                <div class="skill-percentage">80%</div>
-              </div>
-            </div>
-
-            <div class="skill" role="region" aria-label="CSS and HTML skill proficiency 95 percent">
-              <div class="skill-name">CSS / HTML</div>
-              <div class="radial-progress" aria-hidden="true">
-                <svg viewBox="0 0 80 80" >
-                  <circle class="radial-progress-bg" cx="40" cy="40" r="36"></circle>
-                  <circle class="radial-progress-fg css-progress" cx="40" cy="40" r="36"></circle>
-                </svg>
-                <div class="skill-percentage">95%</div>
-              </div>
-            </div>
-
-            <div class="skill" role="region" aria-label="Python skill proficiency 70 percent">
-              <div class="skill-name">Python</div>
-              <div class="radial-progress" aria-hidden="true">
-                <svg viewBox="0 0 80 80" >
-                  <circle class="radial-progress-bg" cx="40" cy="40" r="36"></circle>
-                  <circle class="radial-progress-fg python-progress" cx="40" cy="40" r="36"></circle>
-                </svg>
-                <div class="skill-percentage">70%</div>
-              </div>
-            </div>
-          </div>
-        </details>
-      </section>
-
-      <section id="education" tabindex="-1" aria-labelledby="education-title">
-        <h2 id="education-title">Education</h2>
-        <ul>
-          <li>
-            <h3>Bachelor of Science in Computer Science</h3>
-            <span>University of Excellent Studies, 2018 - 2022</span>
-          </li>
-          <li>
-            <h3>High School Diploma</h3>
-            <span>ABC High School, 2014 - 2018</span>
-          </li>
-        </ul>
-      </section>
-      <footer>
-        &copy; 2024 Your Name. All rights reserved.
-      </footer>
-    </main>
+<section id="education" tabindex="-1" aria-labelledby="education-title">
+  <h2 id="education-title">Tools</h2>
+  <div class="skills-container">
+    <div class="skill-card">Metasploit</div>
+    <div class="skill-card">Wireshark</div>
+    <div class="skill-card">Burp Suite</div>
+    <div class="skill-card">Kali Linux</div>
+    <div class="skill-card">Cisco Packet Tracer</div>
   </div>
+</section>
 
 <script>
   // Smooth active link highlight on scroll
@@ -629,9 +571,10 @@
   });
 
   // Blog button open blogs.html in new tab
-  document.getElementById('blog-btn').addEventListener('click', () => {
-    window.open('blogs.html', '_blank');
-  });
+ document.getElementById('blog-btn').addEventListener('click', () => {
+  window.location.href = 'blogs.html';
+});
+
 
   // Initialize
   document.addEventListener('DOMContentLoaded', () => {
